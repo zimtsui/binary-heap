@@ -1,5 +1,5 @@
 {
-  "name": "ts-template",
+  "name": "binary-heap",
   "version": "0.0.1",
   "description": "",
   "main": "./build/index.js",
@@ -9,5 +9,9 @@
     "build": "tsc -b ./src/tsconfig.json",
     "clean": "rm -rf ./build"
   },
-  "author": "Zim"
+  "author": "Zim",
+  "dependencies": {
+    "@types/assert": "^1.5.6",
+    "assert": "^1.5.0"
+  }
 }
