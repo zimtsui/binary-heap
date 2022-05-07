@@ -18,31 +18,31 @@ class Heap {
         return this.cmp(this.a[l1].value, this.a[l2].value);
     }
     up(self) {
-        for (;;) {
-            let min = self;
+        for (; self > 1;) {
+            let prior = self;
             const parent = self >> 1;
-            if (parent > 0 && this.cmpL(min, parent))
-                min = parent;
-            if (min === self)
+            if (this.cmpL(parent, self))
+                prior = parent;
+            if (prior === parent)
                 break;
-            this.swapL(min, self);
-            self = min;
+            this.swapL(self, parent);
+            self = parent;
         }
         return self;
     }
     down(self) {
         for (;;) {
-            let min = self;
+            let prior = self;
             const left = self << 1;
-            if (left <= this.n() && this.cmpL(left, min))
-                min = left;
+            if (left <= this.n() && this.cmpL(left, prior))
+                prior = left;
             const right = self << 1 | 1;
-            if (right <= this.n() && this.cmpL(right, min))
-                min = right;
-            if (min === self)
+            if (right <= this.n() && this.cmpL(right, prior))
+                prior = right;
+            if (prior === self)
                 break;
-            this.swapL(min, self);
-            self = min;
+            this.swapL(prior, self);
+            self = prior;
         }
         return self;
     }
@@ -58,14 +58,19 @@ class Heap {
         this.up(this.n());
         return p;
     }
-    remove(p) {
-        let self = p.location;
+    pop() {
+        const p = this.a.pop();
         p.location = null;
-        if (self === this.n()) {
-            this.a.pop();
+        return p;
+    }
+    remove(p) {
+        if (p.location === this.n()) {
+            this.pop();
             return;
         }
-        this.a[self] = this.a.pop();
+        let self = p.location;
+        this.swapL(self, this.n());
+        this.pop();
         self = this.up(self);
         self = this.down(self);
     }

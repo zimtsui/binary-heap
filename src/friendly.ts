@@ -27,32 +27,32 @@ export class Heap<T> {
 	}
 
 	private up(self: number): number {
-		for (; ;) {
-			let min = self;
+		for (; self > 1;) {
+			let prior = self;
 
 			const parent = self >> 1;
-			if (parent > 0 && this.cmpL(min, parent)) min = parent;
+			if (this.cmpL(parent, self)) prior = parent;
 
-			if (min === self) break;
-			this.swapL(min, self);
-			self = min;
+			if (prior === parent) break;
+			this.swapL(self, parent);
+			self = parent;
 		}
 		return self;
 	}
 
 	private down(self: number): number {
 		for (; ;) {
-			let min = self;
+			let prior = self;
 
 			const left = self << 1;
-			if (left <= this.n() && this.cmpL(left, min)) min = left;
+			if (left <= this.n() && this.cmpL(left, prior)) prior = left;
 
 			const right = self << 1 | 1;
-			if (right <= this.n() && this.cmpL(right, min)) min = right;
+			if (right <= this.n() && this.cmpL(right, prior)) prior = right;
 
-			if (min === self) break;
-			this.swapL(min, self);
-			self = min;
+			if (prior === self) break;
+			this.swapL(prior, self);
+			self = prior;
 		}
 		return self;
 	}
@@ -71,16 +71,22 @@ export class Heap<T> {
 		return p;
 	}
 
-	public remove(p: Pointer<T>): void {
-		let self = p.location!;
+	private pop(): Pointer<T> {
+		const p = this.a.pop()!;
 		p.location = null;
+		return p;
+	}
 
-		if (self === this.n()) {
-			this.a.pop();
+	public remove(p: Pointer<T>): void {
+		if (p.location! === this.n()) {
+			this.pop();
 			return;
 		}
 
-		this.a[self] = this.a.pop()!;
+		let self = p.location!;
+		this.swapL(self, this.n());
+		this.pop();
+
 		self = this.up(self);
 		self = this.down(self);
 	}

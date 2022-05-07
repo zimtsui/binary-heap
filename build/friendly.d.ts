@@ -12,6 +12,7 @@ export declare class Heap<T> {
     private down;
     n(): number;
     push(x: T): Pointer<T>;
+    private pop;
     remove(p: Pointer<T>): void;
     shift(): T;
     getFront(): T;

@@ -1,4 +1,7 @@
-import { Heap as FriendlyHeap } from './friendly';
+import {
+	Heap as FriendlyHeap,
+	Pointer as FriendlyPointer,
+} from './friendly';
 import { Pointer } from './pointer';
 import assert = require('assert');
 
@@ -13,7 +16,7 @@ export class Heap<T> {
 	}
 
 	public push(x: T): Pointer<T> {
-		const p = this.friendly.push(x);
+		const p: FriendlyPointer<T> = this.friendly.push(x);
 		return new Pointer(p, this.friendly);
 	}
 
