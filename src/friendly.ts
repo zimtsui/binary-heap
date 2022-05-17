@@ -12,7 +12,16 @@ export class Heap<T> {
 
 	public constructor(
 		private cmp: Cmp<T>,
-	) { }
+		initials: T[] = [],
+	) {
+		for (let i = 0; i < initials.length; i++)
+			this.a.push({
+				value: initials[i],
+				location: i + 1,
+			});
+		for (let i = this.n() >> 1; i > 0; i--)
+			this.down(i);
+	}
 
 	private swapL(
 		l1: number,

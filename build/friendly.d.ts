@@ -8,7 +8,7 @@ export interface Cmp<T> {
 export declare class Heap<T> {
     private cmp;
     a: Element<T>[];
-    constructor(cmp: Cmp<T>);
+    constructor(cmp: Cmp<T>, initials?: T[]);
     private swapL;
     private cmpL;
     private up;

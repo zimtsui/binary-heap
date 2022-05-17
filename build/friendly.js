@@ -2,9 +2,16 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Heap = void 0;
 class Heap {
-    constructor(cmp) {
+    constructor(cmp, initials = []) {
         this.cmp = cmp;
         this.a = [null];
+        for (let i = 0; i < initials.length; i++)
+            this.a.push({
+                value: initials[i],
+                location: i + 1,
+            });
+        for (let i = this.n() >> 1; i > 0; i--)
+            this.down(i);
     }
     swapL(l1, l2) {
         const p1 = this.a[l1];
