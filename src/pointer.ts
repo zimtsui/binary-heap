@@ -1,18 +1,18 @@
 import {
 	Heap as FriendlyHeap,
-	Pointer as FriendlyPointer,
+	Element,
 } from './friendly';
 import assert = require('assert');
 
 
 export class Pointer<T> {
 	public constructor(
-		private friendly: FriendlyPointer<T>,
-		private heap: FriendlyHeap<T>,
+		private element: Element<T>,
+		private friendly: FriendlyHeap<T>,
 	) { }
 
 	public deref(): T {
-		return this.friendly.value;
+		return this.element.value;
 	}
 
 	public remove(): void {
@@ -20,11 +20,11 @@ export class Pointer<T> {
 			!this.isRemoved(),
 			new AlreadyRemoved('Already removed.'),
 		);
-		this.heap.remove(this.friendly);
+		this.friendly.remove(this.element);
 	}
 
 	public isRemoved(): boolean {
-		return this.friendly.location === null;
+		return this.element.location === null;
 	}
 }
 

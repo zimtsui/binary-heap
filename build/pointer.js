@@ -3,19 +3,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AlreadyRemoved = exports.Pointer = void 0;
 const assert = require("assert");
 class Pointer {
-    constructor(friendly, heap) {
+    constructor(element, friendly) {
+        this.element = element;
         this.friendly = friendly;
-        this.heap = heap;
     }
     deref() {
-        return this.friendly.value;
+        return this.element.value;
     }
     remove() {
         assert(!this.isRemoved(), new AlreadyRemoved('Already removed.'));
-        this.heap.remove(this.friendly);
+        this.friendly.remove(this.element);
     }
     isRemoved() {
-        return this.friendly.location === null;
+        return this.element.location === null;
     }
 }
 exports.Pointer = Pointer;

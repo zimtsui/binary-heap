@@ -21,7 +21,7 @@ class Heap {
         for (; self > 1;) {
             let prior = self;
             const parent = self >> 1;
-            if (this.cmpL(parent, self))
+            if (this.cmpL(parent, self) <= 0)
                 prior = parent;
             if (prior === parent)
                 break;
@@ -34,10 +34,10 @@ class Heap {
         for (;;) {
             let prior = self;
             const left = self << 1;
-            if (left <= this.n() && this.cmpL(left, prior))
+            if (left <= this.n() && this.cmpL(left, prior) <= 0)
                 prior = left;
             const right = self << 1 | 1;
-            if (right <= this.n() && this.cmpL(right, prior))
+            if (right <= this.n() && this.cmpL(right, prior) <= 0)
                 prior = right;
             if (prior === self)
                 break;
@@ -50,18 +50,18 @@ class Heap {
         return this.a.length - 1;
     }
     push(x) {
-        const p = {
+        const e = {
             value: x,
             location: this.n() + 1,
         };
-        this.a.push(p);
+        this.a.push(e);
         this.up(this.n());
-        return p;
+        return e;
     }
     pop() {
-        const p = this.a.pop();
-        p.location = null;
-        return p;
+        const e = this.a.pop();
+        e.location = null;
+        return e;
     }
     remove(p) {
         if (p.location === this.n()) {

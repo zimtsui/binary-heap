@@ -1,13 +1,17 @@
-export interface Pointer<T> {
+export interface Element<T> {
 	value: T;
 	location: number | null;
 }
 
+export interface Cmp<T> {
+	(x1: T, x2: T): number;
+}
+
 export class Heap<T> {
-	public a: Pointer<T>[] = [<any>null];
+	public a: Element<T>[] = [<any>null];
 
 	public constructor(
-		private cmp: (x1: T, x2: T) => boolean,
+		private cmp: Cmp<T>,
 	) { }
 
 	private swapL(
@@ -22,7 +26,7 @@ export class Heap<T> {
 		p1.location = l2;
 	}
 
-	private cmpL(l1: number, l2: number): boolean {
+	private cmpL(l1: number, l2: number): number {
 		return this.cmp(this.a[l1].value, this.a[l2].value);
 	}
 
@@ -31,7 +35,7 @@ export class Heap<T> {
 			let prior = self;
 
 			const parent = self >> 1;
-			if (this.cmpL(parent, self)) prior = parent;
+			if (this.cmpL(parent, self) <= 0) prior = parent;
 
 			if (prior === parent) break;
 			this.swapL(self, parent);
@@ -45,10 +49,10 @@ export class Heap<T> {
 			let prior = self;
 
 			const left = self << 1;
-			if (left <= this.n() && this.cmpL(left, prior)) prior = left;
+			if (left <= this.n() && this.cmpL(left, prior) <= 0) prior = left;
 
 			const right = self << 1 | 1;
-			if (right <= this.n() && this.cmpL(right, prior)) prior = right;
+			if (right <= this.n() && this.cmpL(right, prior) <= 0) prior = right;
 
 			if (prior === self) break;
 			this.swapL(prior, self);
@@ -61,23 +65,23 @@ export class Heap<T> {
 		return this.a.length - 1;
 	}
 
-	public push(x: T): Pointer<T> {
-		const p: Pointer<T> = {
+	public push(x: T): Element<T> {
+		const e: Element<T> = {
 			value: x,
 			location: this.n() + 1,
 		};
-		this.a.push(p);
+		this.a.push(e);
 		this.up(this.n());
-		return p;
+		return e;
 	}
 
-	private pop(): Pointer<T> {
-		const p = this.a.pop()!;
-		p.location = null;
-		return p;
+	private pop(): Element<T> {
+		const e = this.a.pop()!;
+		e.location = null;
+		return e;
 	}
 
-	public remove(p: Pointer<T>): void {
+	public remove(p: Element<T>): void {
 		if (p.location! === this.n()) {
 			this.pop();
 			return;

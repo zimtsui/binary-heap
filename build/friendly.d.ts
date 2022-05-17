@@ -1,19 +1,22 @@
-export interface Pointer<T> {
+export interface Element<T> {
     value: T;
     location: number | null;
 }
+export interface Cmp<T> {
+    (x1: T, x2: T): number;
+}
 export declare class Heap<T> {
     private cmp;
-    a: Pointer<T>[];
-    constructor(cmp: (x1: T, x2: T) => boolean);
+    a: Element<T>[];
+    constructor(cmp: Cmp<T>);
     private swapL;
     private cmpL;
     private up;
     private down;
     n(): number;
-    push(x: T): Pointer<T>;
+    push(x: T): Element<T>;
     private pop;
-    remove(p: Pointer<T>): void;
+    remove(p: Element<T>): void;
     shift(): T;
     getFront(): T;
 }
