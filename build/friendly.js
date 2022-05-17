@@ -63,21 +63,21 @@ class Heap {
         e.location = null;
         return e;
     }
-    remove(p) {
-        if (p.location === this.n()) {
+    remove(e) {
+        if (e.location === this.n()) {
             this.pop();
             return;
         }
-        let self = p.location;
+        let self = e.location;
         this.swapL(self, this.n());
         this.pop();
         self = this.up(self);
         self = this.down(self);
     }
     shift() {
-        const p = this.a[1];
-        this.remove(p);
-        return p.value;
+        const e = this.a[1];
+        this.remove(e);
+        return e.value;
     }
     getFront() {
         return this.a[1].value;

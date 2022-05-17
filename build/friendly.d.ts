@@ -16,7 +16,7 @@ export declare class Heap<T> {
     n(): number;
     push(x: T): Element<T>;
     private pop;
-    remove(p: Element<T>): void;
+    remove(e: Element<T>): void;
     shift(): T;
     getFront(): T;
 }

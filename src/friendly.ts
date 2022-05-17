@@ -81,13 +81,13 @@ export class Heap<T> {
 		return e;
 	}
 
-	public remove(p: Element<T>): void {
-		if (p.location! === this.n()) {
+	public remove(e: Element<T>): void {
+		if (e.location! === this.n()) {
 			this.pop();
 			return;
 		}
 
-		let self = p.location!;
+		let self = e.location!;
 		this.swapL(self, this.n());
 		this.pop();
 
@@ -96,9 +96,9 @@ export class Heap<T> {
 	}
 
 	public shift(): T {
-		const p = this.a[1];
-		this.remove(p);
-		return p.value;
+		const e = this.a[1];
+		this.remove(e);
+		return e.value;
 	}
 
 	public getFront(): T {
