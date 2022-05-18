@@ -4,15 +4,10 @@ import {
 	Cmp,
 } from './friendly';
 import { Pointer } from './pointer';
-import {
-	Fifo,
-	Diligent,
-	NoEnoughElements,
-} from 'sequence-interfaces';
 import assert = require('assert');
 
 
-export class Heap<T> implements Fifo<T>, Diligent {
+export class Heap<T> {
 	private friendly: FriendlyHeap<T>;
 
 	public constructor(cmp: Cmp<T>) {
@@ -22,10 +17,6 @@ export class Heap<T> implements Fifo<T>, Diligent {
 	public push(x: T): Pointer<T> {
 		const element: Element<T> = this.friendly.push(x);
 		return new Pointer(element, this.friendly);
-	}
-
-	public isEmpty(): boolean {
-		return this.friendly.n() === 0;
 	}
 
 	public shift(): T {
@@ -48,3 +39,5 @@ export class Heap<T> implements Fifo<T>, Diligent {
 		return this.friendly.getFront();
 	}
 }
+
+export class NoEnoughElements extends Error { }
