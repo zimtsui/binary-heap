@@ -1,6 +1,9 @@
 import { Heap as FriendlyHeap, Element } from './friendly';
 export interface PointerLike<T> {
     deref(): T;
+    /**
+     * @throws ReferenceError
+     */
     remove(): void;
     isRemoved(): boolean;
 }

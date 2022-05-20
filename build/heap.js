@@ -12,6 +12,9 @@ class Heap {
         const element = this.friendly.push(x);
         return new pointer_1.Pointer(element, this.friendly);
     }
+    /**
+     * @throws RangeError
+     */
     shift() {
         assert(this.friendly.n() > 0, new RangeError());
         return this.friendly.shift();
@@ -19,6 +22,9 @@ class Heap {
     getSize() {
         return this.friendly.n();
     }
+    /**
+     * @throws RangeError
+     */
     getFront() {
         assert(this.friendly.n() > 0, new RangeError());
         return this.friendly.getFront();

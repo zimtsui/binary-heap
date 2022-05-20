@@ -7,6 +7,9 @@ import assert = require('assert');
 
 export interface PointerLike<T> {
 	deref(): T;
+	/**
+	 * @throws ReferenceError
+	 */
 	remove(): void;
 	isRemoved(): boolean;
 }

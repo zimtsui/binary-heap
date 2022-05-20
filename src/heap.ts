@@ -22,6 +22,9 @@ export class Heap<T> {
 		return new Pointer(element, this.friendly);
 	}
 
+	/**
+	 * @throws RangeError
+	 */
 	public shift(): T {
 		assert(
 			this.friendly.n() > 0,
@@ -34,6 +37,9 @@ export class Heap<T> {
 		return this.friendly.n();
 	}
 
+	/**
+	 * @throws RangeError
+	 */
 	public getFront(): T {
 		assert(
 			this.friendly.n() > 0,
