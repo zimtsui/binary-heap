@@ -3,7 +3,10 @@ import {
 	Element,
 	Cmp,
 } from './friendly';
-import { Pointer } from './pointer';
+import {
+	Pointer,
+	PointerLike,
+} from './pointer';
 import assert = require('assert');
 
 
@@ -14,7 +17,7 @@ export class Heap<T> {
 		this.friendly = new FriendlyHeap<T>(cmp);
 	}
 
-	public push(x: T): Pointer<T> {
+	public push(x: T): PointerLike<T> {
 		const element: Element<T> = this.friendly.push(x);
 		return new Pointer(element, this.friendly);
 	}
@@ -22,7 +25,7 @@ export class Heap<T> {
 	public shift(): T {
 		assert(
 			this.friendly.n() > 0,
-			new NoEnoughElements(),
+			new RangeError(),
 		);
 		return this.friendly.shift();
 	}
@@ -34,10 +37,8 @@ export class Heap<T> {
 	public getFront(): T {
 		assert(
 			this.friendly.n() > 0,
-			new NoEnoughElements(),
+			new RangeError(),
 		);
 		return this.friendly.getFront();
 	}
 }
-
-export class NoEnoughElements extends Error { }

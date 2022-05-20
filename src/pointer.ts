@@ -5,7 +5,13 @@ import {
 import assert = require('assert');
 
 
-export class Pointer<T> {
+export interface PointerLike<T> {
+	deref(): T;
+	remove(): void;
+	isRemoved(): boolean;
+}
+
+export class Pointer<T> implements PointerLike<T>{
 	public constructor(
 		private element: Element<T>,
 		private friendly: FriendlyHeap<T>,
@@ -18,7 +24,7 @@ export class Pointer<T> {
 	public remove(): void {
 		assert(
 			!this.isRemoved(),
-			new AlreadyRemoved('Already removed.'),
+			new ReferenceError(),
 		);
 		this.friendly.remove(this.element);
 	}
@@ -27,5 +33,3 @@ export class Pointer<T> {
 		return this.element.location === null;
 	}
 }
-
-export class AlreadyRemoved extends Error { }

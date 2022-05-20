@@ -1,11 +1,14 @@
 import { Heap as FriendlyHeap, Element } from './friendly';
-export declare class Pointer<T> {
+export interface PointerLike<T> {
+    deref(): T;
+    remove(): void;
+    isRemoved(): boolean;
+}
+export declare class Pointer<T> implements PointerLike<T> {
     private element;
     private friendly;
     constructor(element: Element<T>, friendly: FriendlyHeap<T>);
     deref(): T;
     remove(): void;
     isRemoved(): boolean;
-}
-export declare class AlreadyRemoved extends Error {
 }

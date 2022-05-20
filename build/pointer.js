@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AlreadyRemoved = exports.Pointer = void 0;
+exports.Pointer = void 0;
 const assert = require("assert");
 class Pointer {
     constructor(element, friendly) {
@@ -11,7 +11,7 @@ class Pointer {
         return this.element.value;
     }
     remove() {
-        assert(!this.isRemoved(), new AlreadyRemoved('Already removed.'));
+        assert(!this.isRemoved(), new ReferenceError());
         this.friendly.remove(this.element);
     }
     isRemoved() {
@@ -19,7 +19,4 @@ class Pointer {
     }
 }
 exports.Pointer = Pointer;
-class AlreadyRemoved extends Error {
-}
-exports.AlreadyRemoved = AlreadyRemoved;
 //# sourceMappingURL=pointer.js.map
