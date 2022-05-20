@@ -25,7 +25,7 @@ class Heap {
     /**
      * @throws RangeError
      */
-    getFront() {
+    i(index) {
         assert(this.friendly.n() > 0, new RangeError());
         return this.friendly.getFront();
     }

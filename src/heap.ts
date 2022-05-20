@@ -40,7 +40,7 @@ export class Heap<T> {
 	/**
 	 * @throws RangeError
 	 */
-	public getFront(): T {
+	public i(index: 0): T {
 		assert(
 			this.friendly.n() > 0,
 			new RangeError(),

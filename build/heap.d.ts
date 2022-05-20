@@ -12,5 +12,5 @@ export declare class Heap<T> {
     /**
      * @throws RangeError
      */
-    getFront(): T;
+    i(index: 0): T;
 }
