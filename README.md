@@ -1,6 +1,6 @@
 # Binary Heap
 
-A priority queue implemented with binary heap.
+A priority queue implemented as binary heap.
 
 ## Comparison
 
