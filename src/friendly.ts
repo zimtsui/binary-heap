@@ -1,6 +1,6 @@
 export interface Element<T> {
 	value: T;
-	location: number | null;
+	position: number | null;
 }
 
 export interface Cmp<T> {
@@ -17,7 +17,7 @@ export class Heap<T> {
 		for (let i = 0; i < initials.length; i++)
 			this.a.push({
 				value: initials[i],
-				location: i + 1,
+				position: i + 1,
 			});
 		for (let i = this.n() >> 1; i > 0; i--)
 			this.down(i);
@@ -31,8 +31,8 @@ export class Heap<T> {
 		const p2 = this.a[l2];
 		this.a[l1] = p2;
 		this.a[l2] = p1;
-		p2.location = l1;
-		p1.location = l2;
+		p2.position = l1;
+		p1.position = l2;
 	}
 
 	private cmpL(l1: number, l2: number): number {
@@ -77,7 +77,7 @@ export class Heap<T> {
 	public push(x: T): Element<T> {
 		const e: Element<T> = {
 			value: x,
-			location: this.n() + 1,
+			position: this.n() + 1,
 		};
 		this.a.push(e);
 		this.up(this.n());
@@ -86,17 +86,17 @@ export class Heap<T> {
 
 	private pop(): Element<T> {
 		const e = this.a.pop()!;
-		e.location = null;
+		e.position = null;
 		return e;
 	}
 
 	public remove(e: Element<T>): void {
-		if (e.location! === this.n()) {
+		if (e.position! === this.n()) {
 			this.pop();
 			return;
 		}
 
-		let self = e.location!;
+		let self = e.position!;
 		this.swapL(self, this.n());
 		this.pop();
 

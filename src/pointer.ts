@@ -33,6 +33,6 @@ export class Pointer<T> implements PointerLike<T>{
 	}
 
 	public isRemoved(): boolean {
-		return this.element.location === null;
+		return this.element.position === null;
 	}
 }

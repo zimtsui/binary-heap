@@ -8,7 +8,7 @@ class Heap {
         for (let i = 0; i < initials.length; i++)
             this.a.push({
                 value: initials[i],
-                location: i + 1,
+                position: i + 1,
             });
         for (let i = this.n() >> 1; i > 0; i--)
             this.down(i);
@@ -18,8 +18,8 @@ class Heap {
         const p2 = this.a[l2];
         this.a[l1] = p2;
         this.a[l2] = p1;
-        p2.location = l1;
-        p1.location = l2;
+        p2.position = l1;
+        p1.position = l2;
     }
     cmpL(l1, l2) {
         return this.cmp(this.a[l1].value, this.a[l2].value);
@@ -59,7 +59,7 @@ class Heap {
     push(x) {
         const e = {
             value: x,
-            location: this.n() + 1,
+            position: this.n() + 1,
         };
         this.a.push(e);
         this.up(this.n());
@@ -67,15 +67,15 @@ class Heap {
     }
     pop() {
         const e = this.a.pop();
-        e.location = null;
+        e.position = null;
         return e;
     }
     remove(e) {
-        if (e.location === this.n()) {
+        if (e.position === this.n()) {
             this.pop();
             return;
         }
-        let self = e.location;
+        let self = e.position;
         this.swapL(self, this.n());
         this.pop();
         self = this.up(self);

@@ -1,6 +1,6 @@
 export interface Element<T> {
     value: T;
-    location: number | null;
+    position: number | null;
 }
 export interface Cmp<T> {
     (x1: T, x2: T): number;

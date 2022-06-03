@@ -15,7 +15,7 @@ class Pointer {
         this.friendly.remove(this.element);
     }
     isRemoved() {
-        return this.element.location === null;
+        return this.element.position === null;
     }
 }
 exports.Pointer = Pointer;
