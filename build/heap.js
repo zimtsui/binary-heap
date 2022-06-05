@@ -29,6 +29,13 @@ class Heap {
         assert(this.friendly.n() > 0, new RangeError());
         return this.friendly.getFront();
     }
+    *[Symbol.iterator]() {
+        try {
+            for (;;)
+                yield this.shift();
+        }
+        catch (err) { }
+    }
 }
 exports.Heap = Heap;
 //# sourceMappingURL=heap.js.map

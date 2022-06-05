@@ -10,7 +10,7 @@ import {
 import assert = require('assert');
 
 
-export class Heap<T> {
+export class Heap<T> implements Iterable<T>{
 	private friendly: FriendlyHeap<T>;
 
 	public constructor(
@@ -52,5 +52,11 @@ export class Heap<T> {
 			new RangeError(),
 		);
 		return this.friendly.getFront();
+	}
+
+	public *[Symbol.iterator]() {
+		try {
+			for (; ;) yield this.shift();
+		} catch (err) { }
 	}
 }

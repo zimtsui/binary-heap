@@ -1,6 +1,6 @@
 import { Cmp } from './friendly';
 import { PointerLike } from './pointer';
-export declare class Heap<T> {
+export declare class Heap<T> implements Iterable<T> {
     private friendly;
     constructor(cmp: Cmp<T>, initials?: T[]);
     push(x: T): PointerLike<T>;
@@ -13,4 +13,5 @@ export declare class Heap<T> {
      * @throws RangeError
      */
     i(index: 0): T;
+    [Symbol.iterator](): Generator<T, void, unknown>;
 }
