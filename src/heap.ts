@@ -13,8 +13,14 @@ import assert = require('assert');
 export class Heap<T> {
 	private friendly: FriendlyHeap<T>;
 
-	public constructor(cmp: Cmp<T>) {
-		this.friendly = new FriendlyHeap<T>(cmp);
+	public constructor(
+		cmp: Cmp<T>,
+		initials: T[] = [],
+	) {
+		this.friendly = new FriendlyHeap<T>(
+			cmp,
+			initials,
+		);
 	}
 
 	public push(x: T): PointerLike<T> {

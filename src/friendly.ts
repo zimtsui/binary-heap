@@ -12,7 +12,7 @@ export class Heap<T> {
 
 	public constructor(
 		private cmp: Cmp<T>,
-		initials: T[] = [],
+		initials: T[],
 	) {
 		for (let i = 0; i < initials.length; i++)
 			this.a.push({

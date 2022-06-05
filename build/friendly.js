@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Heap = void 0;
 class Heap {
-    constructor(cmp, initials = []) {
+    constructor(cmp, initials) {
         this.cmp = cmp;
         this.a = [null];
         for (let i = 0; i < initials.length; i++)

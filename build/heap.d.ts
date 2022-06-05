@@ -2,7 +2,7 @@ import { Cmp } from './friendly';
 import { PointerLike } from './pointer';
 export declare class Heap<T> {
     private friendly;
-    constructor(cmp: Cmp<T>);
+    constructor(cmp: Cmp<T>, initials?: T[]);
     push(x: T): PointerLike<T>;
     /**
      * @throws RangeError

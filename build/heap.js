@@ -5,8 +5,8 @@ const friendly_1 = require("./friendly");
 const pointer_1 = require("./pointer");
 const assert = require("assert");
 class Heap {
-    constructor(cmp) {
-        this.friendly = new friendly_1.Heap(cmp);
+    constructor(cmp, initials = []) {
+        this.friendly = new friendly_1.Heap(cmp, initials);
     }
     push(x) {
         const element = this.friendly.push(x);
