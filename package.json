@@ -1,14 +1,18 @@
 {
-  "name": "binary-heap",
+  "name": "@zimtsui/binary-heap",
   "version": "0.0.1",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zimtsui/binary-heap.git"
+  },
   "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "scripts": {
     "test": "tsc -b ./test/src/tsconfig.json && ava",
     "build": "tsc -b ./src/tsconfig.json",
     "clean": "rm -rf ./build",
-    "docs": "typedoc --tsconfig ./src/tsconfig.json --excludePrivate --excludeProtected ./src/index.ts"
+    "docs": "typedoc --tsconfig ./src/tsconfig.json --excludePrivate --excludeProtected --cleanOutputDir ./src/index.ts"
   },
   "author": "Zim",
   "dependencies": {
