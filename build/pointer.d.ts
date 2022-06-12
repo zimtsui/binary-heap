@@ -1,17 +1,11 @@
-import { Heap as FriendlyHeap, Element } from './friendly';
-export interface PointerLike<T> {
+import { Node } from './tree';
+export declare class Pointer<T> {
+    private node;
+    constructor(node: Node<T>);
     deref(): T;
     /**
      * @throws ReferenceError
      */
-    remove(): void;
-    isRemoved(): boolean;
-}
-export declare class Pointer<T> implements PointerLike<T> {
-    private element;
-    private friendly;
-    constructor(element: Element<T>, friendly: FriendlyHeap<T>);
-    deref(): T;
     remove(): void;
     isRemoved(): boolean;
 }

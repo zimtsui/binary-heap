@@ -1,38 +1,32 @@
 import {
-	Heap as FriendlyHeap,
-	Element,
-} from './friendly';
+	Tree,
+	Node,
+} from './tree';
 import assert = require('assert');
 
 
-export interface PointerLike<T> {
-	deref(): T;
-	/**
-	 * @throws ReferenceError
-	 */
-	remove(): void;
-	isRemoved(): boolean;
-}
 
-export class Pointer<T> implements PointerLike<T>{
+export class Pointer<T> {
 	public constructor(
-		private element: Element<T>,
-		private friendly: FriendlyHeap<T>,
+		private node: Node<T>,
 	) { }
 
 	public deref(): T {
-		return this.element.value;
+		return this.node.value;
 	}
 
+	/**
+	 * @throws ReferenceError
+	 */
 	public remove(): void {
 		assert(
 			!this.isRemoved(),
 			new ReferenceError(),
 		);
-		this.friendly.remove(this.element);
+		this.node.tree.remove(this.node);
 	}
 
 	public isRemoved(): boolean {
-		return this.element.position === null;
+		return this.node.position === null;
 	}
 }

@@ -1,14 +1,15 @@
-export interface Element<T> {
+export interface Node<T> {
 	value: T;
 	position: number | null;
+	tree: Tree<T>;
 }
 
 export interface Cmp<T> {
 	(x1: T, x2: T): number;
 }
 
-export class Heap<T> {
-	public a: Element<T>[] = [<any>null];
+export class Tree<T> {
+	public a: Node<T>[] = [<any>null];
 
 	public constructor(
 		private cmp: Cmp<T>,
@@ -18,12 +19,13 @@ export class Heap<T> {
 			this.a.push({
 				value: initials[i],
 				position: i + 1,
+				tree: this,
 			});
-		for (let i = this.n() >> 1; i > 0; i--)
+		for (let i = this.getSize() >> 1; i > 0; i--)
 			this.down(i);
 	}
 
-	private swapL(
+	private swapOnIndex(
 		l1: number,
 		l2: number,
 	): void {
@@ -35,7 +37,7 @@ export class Heap<T> {
 		p1.position = l2;
 	}
 
-	private cmpL(l1: number, l2: number): number {
+	private cmpOnIndex(l1: number, l2: number): number {
 		return this.cmp(this.a[l1].value, this.a[l2].value);
 	}
 
@@ -44,10 +46,10 @@ export class Heap<T> {
 			let prior = self;
 
 			const parent = self >> 1;
-			if (this.cmpL(parent, self) <= 0) prior = parent;
+			if (this.cmpOnIndex(parent, self) <= 0) prior = parent;
 
 			if (prior === parent) break;
-			this.swapL(self, parent);
+			this.swapOnIndex(self, parent);
 			self = parent;
 		}
 		return self;
@@ -58,46 +60,47 @@ export class Heap<T> {
 			let prior = self;
 
 			const left = self << 1;
-			if (left <= this.n() && this.cmpL(left, prior) <= 0) prior = left;
+			if (left <= this.getSize() && this.cmpOnIndex(left, prior) <= 0) prior = left;
 
 			const right = self << 1 | 1;
-			if (right <= this.n() && this.cmpL(right, prior) <= 0) prior = right;
+			if (right <= this.getSize() && this.cmpOnIndex(right, prior) <= 0) prior = right;
 
 			if (prior === self) break;
-			this.swapL(prior, self);
+			this.swapOnIndex(prior, self);
 			self = prior;
 		}
 		return self;
 	}
 
-	public n() {
+	public getSize() {
 		return this.a.length - 1;
 	}
 
-	public push(x: T): Element<T> {
-		const e: Element<T> = {
+	public push(x: T): Node<T> {
+		const node: Node<T> = {
 			value: x,
-			position: this.n() + 1,
+			position: this.getSize() + 1,
+			tree: this,
 		};
-		this.a.push(e);
-		this.up(this.n());
-		return e;
+		this.a.push(node);
+		this.up(this.getSize());
+		return node;
 	}
 
-	private pop(): Element<T> {
-		const e = this.a.pop()!;
-		e.position = null;
-		return e;
+	private pop(): Node<T> {
+		const node = this.a.pop()!;
+		node.position = null;
+		return node;
 	}
 
-	public remove(e: Element<T>): void {
-		if (e.position! === this.n()) {
+	public remove(node: Node<T>): void {
+		if (node.position! === this.getSize()) {
 			this.pop();
 			return;
 		}
 
-		let self = e.position!;
-		this.swapL(self, this.n());
+		let self = node.position!;
+		this.swapOnIndex(self, this.getSize());
 		this.pop();
 
 		self = this.up(self);
@@ -105,12 +108,12 @@ export class Heap<T> {
 	}
 
 	public shift(): T {
-		const e = this.a[1];
-		this.remove(e);
-		return e.value;
+		const node = this.a[1];
+		this.remove(node);
+		return node.value;
 	}
 
-	public getFront(): T {
+	public getRoot(): T {
 		return this.a[1].value;
 	}
 }

@@ -1,3 +1,3 @@
 export { Heap } from './heap';
-export { PointerLike } from './pointer';
-export { Cmp } from './friendly';
+export { Pointer } from './pointer';
+export { Cmp } from './tree';

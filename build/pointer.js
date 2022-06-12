@@ -3,19 +3,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Pointer = void 0;
 const assert = require("assert");
 class Pointer {
-    constructor(element, friendly) {
-        this.element = element;
-        this.friendly = friendly;
+    constructor(node) {
+        this.node = node;
     }
     deref() {
-        return this.element.value;
+        return this.node.value;
     }
+    /**
+     * @throws ReferenceError
+     */
     remove() {
         assert(!this.isRemoved(), new ReferenceError());
-        this.friendly.remove(this.element);
+        this.node.tree.remove(this.node);
     }
     isRemoved() {
-        return this.element.position === null;
+        return this.node.position === null;
     }
 }
 exports.Pointer = Pointer;

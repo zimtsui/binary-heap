@@ -1,9 +1,9 @@
-import { Cmp } from './friendly';
-import { PointerLike } from './pointer';
+import { Cmp } from './tree';
+import { Pointer } from './pointer';
 export declare class Heap<T> implements Iterable<T> {
-    private friendly;
+    private tree;
     constructor(cmp: Cmp<T>, initials?: T[]);
-    push(x: T): PointerLike<T>;
+    push(x: T): Pointer<T>;
     /**
      * @throws RangeError
      */

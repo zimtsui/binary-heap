@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Heap = void 0;
-class Heap {
+exports.Tree = void 0;
+class Tree {
     constructor(cmp, initials) {
         this.cmp = cmp;
         this.a = [null];
@@ -9,11 +9,12 @@ class Heap {
             this.a.push({
                 value: initials[i],
                 position: i + 1,
+                tree: this,
             });
-        for (let i = this.n() >> 1; i > 0; i--)
+        for (let i = this.getSize() >> 1; i > 0; i--)
             this.down(i);
     }
-    swapL(l1, l2) {
+    swapOnIndex(l1, l2) {
         const p1 = this.a[l1];
         const p2 = this.a[l2];
         this.a[l1] = p2;
@@ -21,18 +22,18 @@ class Heap {
         p2.position = l1;
         p1.position = l2;
     }
-    cmpL(l1, l2) {
+    cmpOnIndex(l1, l2) {
         return this.cmp(this.a[l1].value, this.a[l2].value);
     }
     up(self) {
         for (; self > 1;) {
             let prior = self;
             const parent = self >> 1;
-            if (this.cmpL(parent, self) <= 0)
+            if (this.cmpOnIndex(parent, self) <= 0)
                 prior = parent;
             if (prior === parent)
                 break;
-            this.swapL(self, parent);
+            this.swapOnIndex(self, parent);
             self = parent;
         }
         return self;
@@ -41,54 +42,55 @@ class Heap {
         for (;;) {
             let prior = self;
             const left = self << 1;
-            if (left <= this.n() && this.cmpL(left, prior) <= 0)
+            if (left <= this.getSize() && this.cmpOnIndex(left, prior) <= 0)
                 prior = left;
             const right = self << 1 | 1;
-            if (right <= this.n() && this.cmpL(right, prior) <= 0)
+            if (right <= this.getSize() && this.cmpOnIndex(right, prior) <= 0)
                 prior = right;
             if (prior === self)
                 break;
-            this.swapL(prior, self);
+            this.swapOnIndex(prior, self);
             self = prior;
         }
         return self;
     }
-    n() {
+    getSize() {
         return this.a.length - 1;
     }
     push(x) {
-        const e = {
+        const node = {
             value: x,
-            position: this.n() + 1,
+            position: this.getSize() + 1,
+            tree: this,
         };
-        this.a.push(e);
-        this.up(this.n());
-        return e;
+        this.a.push(node);
+        this.up(this.getSize());
+        return node;
     }
     pop() {
-        const e = this.a.pop();
-        e.position = null;
-        return e;
+        const node = this.a.pop();
+        node.position = null;
+        return node;
     }
-    remove(e) {
-        if (e.position === this.n()) {
+    remove(node) {
+        if (node.position === this.getSize()) {
             this.pop();
             return;
         }
-        let self = e.position;
-        this.swapL(self, this.n());
+        let self = node.position;
+        this.swapOnIndex(self, this.getSize());
         this.pop();
         self = this.up(self);
         self = this.down(self);
     }
     shift() {
-        const e = this.a[1];
-        this.remove(e);
-        return e.value;
+        const node = this.a[1];
+        this.remove(node);
+        return node.value;
     }
-    getFront() {
+    getRoot() {
         return this.a[1].value;
     }
 }
-exports.Heap = Heap;
-//# sourceMappingURL=friendly.js.map
+exports.Tree = Tree;
+//# sourceMappingURL=tree.js.map

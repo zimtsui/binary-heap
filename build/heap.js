@@ -1,33 +1,33 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Heap = void 0;
-const friendly_1 = require("./friendly");
+const tree_1 = require("./tree");
 const pointer_1 = require("./pointer");
 const assert = require("assert");
 class Heap {
     constructor(cmp, initials = []) {
-        this.friendly = new friendly_1.Heap(cmp, initials);
+        this.tree = new tree_1.Tree(cmp, initials);
     }
     push(x) {
-        const element = this.friendly.push(x);
-        return new pointer_1.Pointer(element, this.friendly);
+        const node = this.tree.push(x);
+        return new pointer_1.Pointer(node);
     }
     /**
      * @throws RangeError
      */
     shift() {
-        assert(this.friendly.n() > 0, new RangeError());
-        return this.friendly.shift();
+        assert(this.tree.getSize() > 0, new RangeError());
+        return this.tree.shift();
     }
     getSize() {
-        return this.friendly.n();
+        return this.tree.getSize();
     }
     /**
      * @throws RangeError
      */
     i(index) {
-        assert(this.friendly.n() > 0, new RangeError());
-        return this.friendly.getFront();
+        assert(this.tree.getSize() > 0, new RangeError());
+        return this.tree.getRoot();
     }
     *[Symbol.iterator]() {
         try {

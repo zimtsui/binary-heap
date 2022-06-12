@@ -1,31 +1,27 @@
 import {
-	Heap as FriendlyHeap,
-	Element,
+	Tree,
 	Cmp,
-} from './friendly';
-import {
-	Pointer,
-	PointerLike,
-} from './pointer';
+} from './tree';
+import { Pointer } from './pointer';
 import assert = require('assert');
 
 
 export class Heap<T> implements Iterable<T>{
-	private friendly: FriendlyHeap<T>;
+	private tree: Tree<T>;
 
 	public constructor(
 		cmp: Cmp<T>,
 		initials: T[] = [],
 	) {
-		this.friendly = new FriendlyHeap<T>(
+		this.tree = new Tree<T>(
 			cmp,
 			initials,
 		);
 	}
 
-	public push(x: T): PointerLike<T> {
-		const element: Element<T> = this.friendly.push(x);
-		return new Pointer(element, this.friendly);
+	public push(x: T): Pointer<T> {
+		const node = this.tree.push(x);
+		return new Pointer(node);
 	}
 
 	/**
@@ -33,14 +29,14 @@ export class Heap<T> implements Iterable<T>{
 	 */
 	public shift(): T {
 		assert(
-			this.friendly.n() > 0,
+			this.tree.getSize() > 0,
 			new RangeError(),
 		);
-		return this.friendly.shift();
+		return this.tree.shift();
 	}
 
 	public getSize(): number {
-		return this.friendly.n();
+		return this.tree.getSize();
 	}
 
 	/**
@@ -48,10 +44,10 @@ export class Heap<T> implements Iterable<T>{
 	 */
 	public i(index: 0): T {
 		assert(
-			this.friendly.n() > 0,
+			this.tree.getSize() > 0,
 			new RangeError(),
 		);
-		return this.friendly.getFront();
+		return this.tree.getRoot();
 	}
 
 	public *[Symbol.iterator]() {
