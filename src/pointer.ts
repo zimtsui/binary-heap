@@ -6,10 +6,8 @@ import assert = require('assert');
 
 
 
-export class Pointer<T> {
-	public constructor(
-		private node: Node<T>,
-	) { }
+export abstract class Pointer<T> {
+	protected abstract node: Node<T>;
 
 	public deref(): T {
 		return this.node.value;
@@ -29,4 +27,18 @@ export class Pointer<T> {
 	public isRemoved(): boolean {
 		return this.node.position === null;
 	}
+}
+
+
+class constructor<T> extends Pointer<T> {
+	public constructor(
+		protected node: Node<T>,
+	) {
+		super();
+	}
+}
+
+
+export function create<T>(node: Node<T>): Pointer<T> {
+	return new constructor(node);
 }

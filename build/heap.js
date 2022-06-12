@@ -10,7 +10,7 @@ class Heap {
     }
     push(x) {
         const node = this.tree.push(x);
-        return new pointer_1.Pointer(node);
+        return (0, pointer_1.create)(node);
     }
     /**
      * @throws RangeError

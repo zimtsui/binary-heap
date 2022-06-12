@@ -2,7 +2,10 @@ import {
 	Tree,
 	Cmp,
 } from './tree';
-import { Pointer } from './pointer';
+import {
+	Pointer,
+	create as createPointer,
+} from './pointer';
 import assert = require('assert');
 
 
@@ -21,7 +24,7 @@ export class Heap<T> implements Iterable<T>{
 
 	public push(x: T): Pointer<T> {
 		const node = this.tree.push(x);
-		return new Pointer(node);
+		return createPointer(node);
 	}
 
 	/**

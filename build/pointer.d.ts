@@ -1,7 +1,6 @@
 import { Node } from './tree';
-export declare class Pointer<T> {
-    private node;
-    constructor(node: Node<T>);
+export declare abstract class Pointer<T> {
+    protected abstract node: Node<T>;
     deref(): T;
     /**
      * @throws ReferenceError
@@ -9,3 +8,4 @@ export declare class Pointer<T> {
     remove(): void;
     isRemoved(): boolean;
 }
+export declare function create<T>(node: Node<T>): Pointer<T>;

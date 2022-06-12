@@ -1,11 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Pointer = void 0;
+exports.create = exports.Pointer = void 0;
 const assert = require("assert");
 class Pointer {
-    constructor(node) {
-        this.node = node;
-    }
     deref() {
         return this.node.value;
     }
@@ -21,4 +18,14 @@ class Pointer {
     }
 }
 exports.Pointer = Pointer;
+class constructor extends Pointer {
+    constructor(node) {
+        super();
+        this.node = node;
+    }
+}
+function create(node) {
+    return new constructor(node);
+}
+exports.create = create;
 //# sourceMappingURL=pointer.js.map
