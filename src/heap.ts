@@ -6,7 +6,7 @@ export interface Cmp<T> {
 }
 
 export class Heap<T> implements Iterable<T> {
-	public a: FriendlyNode<T>[] = [<any>null];
+	private a: FriendlyNode<T>[] = [<any>null];
 
 	public constructor(
 		private cmp: Cmp<T>,
@@ -160,7 +160,7 @@ abstract class FriendlyHeap<T> extends Heap<T> {
 
 
 export class Node<T> {
-	protected h: FriendlyHeap<T>;
+	private h: FriendlyHeap<T>;
 
 	public constructor(
 		protected x: T,

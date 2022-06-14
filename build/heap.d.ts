@@ -3,7 +3,7 @@ export interface Cmp<T> {
 }
 export declare class Heap<T> implements Iterable<T> {
     private cmp;
-    a: FriendlyNode<T>[];
+    private a;
     constructor(cmp: Cmp<T>, initials?: T[]);
     private swap;
     private cmpOnIndex;
@@ -26,13 +26,10 @@ export declare class Heap<T> implements Iterable<T> {
     shift(): T;
     [Symbol.iterator](): Generator<T, void, unknown>;
 }
-declare abstract class FriendlyHeap<T> extends Heap<T> {
-    abstract remove(node: Node<T>): void;
-}
 export declare class Node<T> {
     protected x: T;
     protected i: number | null;
-    protected h: FriendlyHeap<T>;
+    private h;
     constructor(x: T, i: number | null, h: Heap<T>);
     deref(): T;
     /**
@@ -41,8 +38,3 @@ export declare class Node<T> {
     remove(): void;
     isRemoved(): boolean;
 }
-declare abstract class FriendlyNode<T> extends Node<T> {
-    abstract x: T;
-    abstract i: number | null;
-}
-export {};
